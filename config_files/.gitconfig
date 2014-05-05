@@ -1,0 +1,17 @@
+[user]
+	name = Will Smith
+	email = wsmith85@gmail.com
+[core]
+	editor = vim
+	autocrlf = input
+	safecrlf = true
+[merge]
+	tool = vimdiff
+[push]
+	default = simple
+[alias]
+  hist = log --pretty=format:'%h %ad | %s%C(auto)%d [%Cgreen%an%Creset]' --graph --date=short
+  type = cat-file -t
+  dump = cat-file -p
+[color]
+	ui = true
