@@ -1,11 +1,11 @@
 ; ******** Automatically install packages ********
 (require 'package)
 ; list packages
-(setq package-list '(elpy marmalade color-theme-solarized yaml-mode virtualenv))
+(setq package-list '(elpy color-theme-solarized yaml-mode virtualenv ag))
 ; list repositories containing packages
 (setq package-archives 
       '(
-	("marmalade" . "http://marmalade-repo.org/packages/")
+	("melpa" . "http://melpa.milkbox.net/packages/")
 	("elpy" . "http://jorgenchaefer.github.io/packages/")
 ))
 ; activate all the packages
@@ -65,6 +65,10 @@
 (global-set-key "\C-ca" 'org-agenda)
 (global-set-key "\C-cb" 'org-iswitchb)
 (setq org-log-done 1)
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((python . t)))
+(setq org-confirm-babel-evaluate nil)
 
 (elpy-enable)
 (elpy-use-ipython)
