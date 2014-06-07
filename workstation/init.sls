@@ -5,17 +5,42 @@
 {% endif %}
 
 {% if grains['os'] == 'Ubuntu' %}
-build-essential:
-  pkg.installed
+my-packages:
+  pkg.installed:
+    - pkgs:
+      - build-essential
+      - linux-headers-{{grains['kernelrelease']}}
+      - gnome-sushi
+      - silversearcher-ag
+      - retext
+      - wireshark
+      - python-gpgme
+      - python-software-properties
+      - python-pycurl
 
+# oracle-java7-installer package must be installed manually
+# because of license agreement
+# don't forget to run 'update-alternatives --config java'
+# to choose java version
+java:
+  pkgrepo.managed:
+    - ppa: webupd8team/java
+  
+  pkg.installed:
+    - name: oracle-java7-installer
+    - refresh: True
+
+  require:
+    - sls: my-packages
+  
 /root/.vimrc:
   file.managed:
     - source: salt://config_files/.vimrc
 
 /etc/default/keyboard:
   file.replace:
-    - pattern: XKBOPTIONS=""
-    - repl: XKBOPTIONS="shift:both_capslock,ctrl:nocaps"
+    - pattern: XKBOPTIONS=".*"
+    - repl: XKBOPTIONS="terminate:ctrl_alt_bksp,shift:both_capslock,ctrl:nocaps"
 
 /etc/default/grub:
   file.replace:
@@ -52,8 +77,18 @@ xcape:
     - requires:
       - file: {{ home_dir }}/.config/autostart
 
-gnome-sushi:
-  pkg.installed  
+vpn:
+  pkg.installed:
+    - pkgs:
+      - vpnc
+      - network-manager-vpnc
+
+/usr/share/X11/xorg.conf.d/50-synaptics.conf:
+  file.managed:
+    - source: salt://workstation/configs/50-synaptics.conf
+    - user: root
+    - group: root
+    - mode: 644
 
 {% endif %}
 
