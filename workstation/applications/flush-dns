@@ -1,0 +1,5 @@
+#!/bin/bash
+
+sudo /etc/init.d/dns-clean restart
+# maybe?
+# sudo /etc/init.d/networking force-reload

@@ -32,7 +32,15 @@ java:
 
   require:
     - sls: my-packages
-  
+
+flush-dns:
+  file.managed:
+    - name: {{ home_dir}}/bin/flush-dns
+    - source: salt://workstation/applications/flush-dns
+    - user: wsmith
+    - group: wsmith
+    - mode: 775
+ 
 /root/.vimrc:
   file.managed:
     - source: salt://config_files/.vimrc
