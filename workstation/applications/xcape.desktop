@@ -1,6 +1,6 @@
 [Desktop Entry]
 Type=Application
-Exec=/home/wsmith/xcape
+Exec=/home/wsmith/bin/xcape
 Hidden=false
 NoDisplay=false
 X-GNOME-Autostart-enabled=true

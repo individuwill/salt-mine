@@ -52,6 +52,9 @@ xcape:
     - requires:
       - file: {{ home_dir }}/.config/autostart
 
+gnome-sushi:
+  pkg.installed  
+
 {% endif %}
 
 
