@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Exec=/home/wsmith/xcape
+Hidden=false
+NoDisplay=false
+X-GNOME-Autostart-enabled=true
+Name[en_US]=xcape
+Name=xcape
+Comment[en_US]=Re-map single tap of ctrl to escape
+Comment=Re-map single tap of ctrl to escape
