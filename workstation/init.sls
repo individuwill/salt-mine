@@ -17,6 +17,10 @@ my-packages:
       - python-gpgme
       - python-software-properties
       - python-pycurl
+      - exfat-fuse
+      - exfat-utils
+      - traceroute
+      - nfs-common
 
 # oracle-java7-installer package must be installed manually
 # because of license agreement
@@ -32,6 +36,16 @@ java:
 
   require:
     - sls: my-packages
+
+# you must run the following command to activate
+# pipelight-plugin --enable silverlight
+silverlight:
+  pkgrepo.managed:
+    - ppa: pipelight/stable
+
+  pkg.installed:
+    - name: pipelight-multi
+    - refresh: True
 
 flush-dns:
   file.managed:
