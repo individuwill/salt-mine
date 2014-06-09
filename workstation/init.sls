@@ -21,6 +21,9 @@ my-packages:
       - exfat-utils
       - traceroute
       - nfs-common
+      - smplayer
+      - vlc
+      - mpv
 
 # oracle-java7-installer package must be installed manually
 # because of license agreement
@@ -46,6 +49,13 @@ silverlight:
   pkg.installed:
     - name: pipelight-multi
     - refresh: True
+
+gns:
+  pkg.installed:
+    - pkgs:
+      - dynamips
+      - gns3
+      - vpcs
 
 flush-dns:
   file.managed:
