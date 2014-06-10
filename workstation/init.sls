@@ -13,17 +13,68 @@ my-packages:
       - gnome-sushi
       - silversearcher-ag
       - retext
-      - wireshark
       - python-gpgme
       - python-software-properties
       - python-pycurl
       - exfat-fuse
       - exfat-utils
-      - traceroute
       - nfs-common
       - smplayer
       - vlc
       - mpv
+      - python-pip
+      - network-manager-openvpn
+      - ubuntu-restricted-extras
+      - flashplugin-installer
+# need to run /usr/share/doc/libdvdread4/install-css.sh
+      - libdvdread4
+      - unity-tweak-tool
+
+tlp:
+  pkgrepo.managed:
+    - ppa: linrunner/tlp
+
+  pkg.installed:
+    - pkgs:
+      - tlp
+      - tlp-rdw
+      - acpi-call-tools
+    - refresh: True
+
+  file.managed:
+    - name: /etc/default/tlp
+    - source: salt://workstation/configs/tlp
+    - mode: 644
+    - user: root
+    - group: root
+
+tlp-start:
+  cmd.wait:
+    - name: tlp start
+    - sls: tlp
+
+networking-tools:
+  pkg.installed:
+    - pkgs:
+      - mtr
+      - traceroute
+      - wireshark
+      - dynamips
+      - gns3
+      - vpcs
+      - nmap
+      - zenmap
+
+{{ home_dir }}/.config/ReText project/ReText.css:
+  file.managed:
+    - source: salt://workstation/configs/ReText.css
+    - mode: 664
+    - user: wsmith
+    - group: wsmith
+    
+{{ home_dir }}/.config/retext:
+  file.symlink:
+    - target: {{ home_dir }}/.config/ReText project
 
 # oracle-java7-installer package must be installed manually
 # because of license agreement
@@ -49,13 +100,6 @@ silverlight:
   pkg.installed:
     - name: pipelight-multi
     - refresh: True
-
-gns:
-  pkg.installed:
-    - pkgs:
-      - dynamips
-      - gns3
-      - vpcs
 
 flush-dns:
   file.managed:
@@ -120,6 +164,13 @@ vpn:
     - source: salt://workstation/configs/50-synaptics.conf
     - user: root
     - group: root
+    - mode: 644
+
+{{ home_dir }}/.profile:
+  file.managed:
+    - source: salt://workstation/configs/.profile
+    - user: wsmith
+    - group: wsmith
     - mode: 644
 
 {% endif %}
