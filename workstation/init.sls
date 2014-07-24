@@ -23,12 +23,27 @@ my-packages:
       - vlc
       - mpv
       - python-pip
-      - network-manager-openvpn
       - ubuntu-restricted-extras
       - flashplugin-installer
 # need to run /usr/share/doc/libdvdread4/install-css.sh
       - libdvdread4
       - unity-tweak-tool
+      - cifs-utils
+      - p7zip-full
+      - p7zip-rar
+
+python-pip:
+  pkg.installed
+
+virtualenv:
+  pip.installed:
+    - require:
+      - pkg: python-pip
+
+virtualenvwrapper:
+  pip.installed:
+    - require:
+      - pkg: python-pip
 
 tlp:
   pkgrepo.managed:
@@ -158,6 +173,7 @@ vpn:
     - pkgs:
       - vpnc
       - network-manager-vpnc
+      - openvpn
 
 /usr/share/X11/xorg.conf.d/50-synaptics.conf:
   file.managed:
